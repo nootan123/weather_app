@@ -8,11 +8,13 @@ import 'package:weatherapp/cubit/currentWeather/current_weather_state.dart';
 import 'package:weatherapp/screen/search_page.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+  MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
+
+String cityName = "Kathmandu";
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
@@ -46,32 +48,32 @@ class _MyHomePageState extends State<MyHomePage> {
                               MaterialPageRoute(
                                   builder: (context) => const SearchPage()));
                         },
-                        icon: Icon(Icons.search)),
+                        icon: const Icon(Icons.search)),
                   ],
                 ),
-                SizedBox(height: 209.0),
+                const SizedBox(height: 209.0),
                 BlocBuilder<CurrentWeatherCubit, CurrentWeatherState>(
                   builder: (BuildContext context, state) {
                     if (state is InitCurrentWeatherState ||
                         state is LoadingCurrentWeatherState) {
-                      return CircularProgressIndicator();
+                      return const CircularProgressIndicator();
                     }
                     if (state is ResponseCurrentWeatherState) {
                       return Column(
                         children: [
                           Text(
-                            "Kathmandu",
-                            style: TextStyle(
+                            cityName,
+                            style: const TextStyle(
                                 color: kLightBlack,
                                 fontSize: font_30,
                                 fontWeight: w6),
                           ),
-                          SizedBox(height: 20.0),
+                          const SizedBox(height: 20.0),
                           Text(
                             state.response.temperature.metric.value.toString() +
                                 " " +
                                 state.response.temperature.metric.unit,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: kLightBlack,
                                 fontSize: font_36,
                                 fontWeight: w7),
@@ -82,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     if (state is ErrorCurrentWeatherState) {
                       return Text(state.errorMessage);
                     }
-                    return Text("s");
+                    return const SizedBox();
                   },
                 ),
               ],
