@@ -30,6 +30,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
@@ -51,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         icon: const Icon(Icons.search)),
                   ],
                 ),
-                const SizedBox(height: 209.0),
+                const SizedBox(height: 150.0),
                 BlocBuilder<CurrentWeatherCubit, CurrentWeatherState>(
                   builder: (BuildContext context, state) {
                     if (state is InitCurrentWeatherState ||
@@ -77,7 +78,17 @@ class _MyHomePageState extends State<MyHomePage> {
                                 color: kLightBlack,
                                 fontSize: font_36,
                                 fontWeight: w7),
-                          )
+                          ),
+                          const SizedBox(height: 10.0),
+                          Image.asset(
+                            "assets/images/${state.response.weatherIcon}.png",
+                            fit: BoxFit.cover,
+                          ),
+                          const SizedBox(
+                            height: 8.0,
+                          ),
+                          Text(state.response.weatherText),
+                          SizedBox(height: 20),
                         ],
                       );
                     }
