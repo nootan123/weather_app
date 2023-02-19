@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weatherapp/constants/app_color.dart';
 import 'package:weatherapp/constants/font_size.dart';
 import 'package:weatherapp/constants/font_weight.dart';
+import 'package:weatherapp/screen/search_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -16,23 +17,33 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(24.0, 55.0, 24.0, 0.0),
+          padding: const EdgeInsets.fromLTRB(24.0, 20.0, 24.0, 0.0),
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Container(
-                  child: const Text("Search Area"),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SearchPage()));
+                        },
+                        icon: Icon(Icons.search)),
+                  ],
                 ),
-                const SizedBox(height: 209.0),
-                const Text(
+                SizedBox(height: 209.0),
+                Text(
                   "Kathmandu",
                   style: TextStyle(
                       color: kLightBlack, fontSize: font_30, fontWeight: w6),
                 ),
-                const SizedBox(height: 20.0),
-                const Text(
+                SizedBox(height: 20.0),
+                Text(
                   "20",
                   style: TextStyle(
                       color: kLightBlack, fontSize: font_36, fontWeight: w7),
