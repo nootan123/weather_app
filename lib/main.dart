@@ -30,7 +30,7 @@ BlocProvider(
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home:  MyHomePage(),
+          home: const MyHomePage(),
         ),
       );
     

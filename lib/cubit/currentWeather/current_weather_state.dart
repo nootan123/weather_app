@@ -8,7 +8,9 @@ class LoadingCurrentWeatherState extends CurrentWeatherState {}
 
 class ErrorCurrentWeatherState extends CurrentWeatherState {
   final String errorMessage;
-  ErrorCurrentWeatherState(this.errorMessage);
+  final String cityId;
+
+  ErrorCurrentWeatherState(this.errorMessage, this.cityId);
 }
 
 class ResponseCurrentWeatherState extends CurrentWeatherState {

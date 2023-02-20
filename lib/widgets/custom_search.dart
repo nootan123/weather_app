@@ -3,7 +3,7 @@ import 'package:weatherapp/constants/app_color.dart';
 
 class CustomSearch extends StatefulWidget {
   final TextEditingController? controller;
-  final String? Function(String?)? onChanged;
+  final  Function(String?)? onChanged;
   const CustomSearch({Key? key, this.controller, this.onChanged})
       : super(key: key);
 

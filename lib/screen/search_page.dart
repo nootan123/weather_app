@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weatherapp/constants/font_size.dart';
 import 'package:weatherapp/constants/font_weight.dart';
@@ -9,6 +7,8 @@ import 'package:weatherapp/cubit/searchCity/search_city_cubit.dart';
 import 'package:weatherapp/cubit/searchCity/search_city_state.dart';
 import 'package:weatherapp/screen/home_page.dart';
 import 'package:weatherapp/widgets/custom_search.dart';
+import 'package:weatherapp/widgets/error_screen.dart';
+import 'package:weatherapp/widgets/loader.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -18,8 +18,8 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  var cubit;
-  var detailsCubit;
+  late SearchCityCubit cubit;
+  late CurrentWeatherCubit detailsCubit;
   @override
   void initState() {
     super.initState();
@@ -35,7 +35,7 @@ class _SearchPageState extends State<SearchPage> {
         appBar: AppBar(
           title: const Text("Search City"),
           bottom: PreferredSize(
-            preferredSize: Size(double.infinity, 50),
+            preferredSize: const Size(double.infinity, 50),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: CustomSearch(onChanged: (val) {
@@ -47,7 +47,7 @@ class _SearchPageState extends State<SearchPage> {
         body: BlocBuilder<SearchCityCubit, SearchCityState>(
           builder: (context, state) {
             if (state is LoadingSearchCityState) {
-              return const CircularProgressIndicator();
+              return const Loader();
             }
             if (state is ResponseSearchCityState) {
               final cities = state.response;
@@ -72,14 +72,20 @@ class _SearchPageState extends State<SearchPage> {
                           ),
                         ),
                         onTap: () {
-                          context
-                              .read<CurrentWeatherCubit>()
-                              .fetchData(cityId: cities[index].key);
+                          detailsCubit.fetchData(cityId: cities[index].key);
                           cityName = cities[index].localizedName;
                           Navigator.pop(context);
                         },
                       );
                     }),
+              );
+            }
+            if (state is ErrorSearchCityState) {
+              return ErrorScreen(
+                reTry: () {
+                  cubit.fetchData(state.cityName);
+                },
+                errorMessage: state.errorMessage,
               );
             }
             return const SizedBox();

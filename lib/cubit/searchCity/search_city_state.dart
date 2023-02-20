@@ -7,8 +7,8 @@ class InitSearchCityState extends SearchCityState {}
 class LoadingSearchCityState extends SearchCityState {}
 
 class ErrorSearchCityState extends SearchCityState {
-  final String errorMessage;
-  ErrorSearchCityState(this.errorMessage);
+  final String errorMessage, cityName;
+  ErrorSearchCityState(this.errorMessage,this.cityName);
 }
 
 class ResponseSearchCityState extends SearchCityState {

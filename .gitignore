@@ -44,5 +44,3 @@ app.*.map.json
 /android/app/release
 
 
-# others
-/lib/constants/api_details.dart
